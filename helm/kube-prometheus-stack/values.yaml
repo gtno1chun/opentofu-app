@@ -1010,6 +1010,17 @@ grafana:
     ## Path for grafana ingress
     path: /
 
+#  grafana.ini:
+#    server:
+#      #domain: "192.168.56.101:30343"
+#      #root_url: "http://192.168.56.101:30343/grafana"
+#      #serve_from_sub_path: true
+#      domain: ""
+#      root_url: ""
+#      serve_from_sub_path: false
+
+
+
     ## TLS configuration for grafana Ingress
     ## Secret must be manually created in the namespace
     ##

@@ -1,0 +1,25 @@
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: ingress-ops
+    namespace: ingress-nginx
+  spec:
+    ingressClassName: nginx
+    rules:
+      - http:
+          paths:
+            - pathType: Prefix
+              path: /grafana
+              backend:
+                service:
+                  name: grafana-external 
+                  port:
+                    number: 80
+#            - pathType: Prefix
+#              path: /webprom
+#              backend:
+#                service:
+#                  name: prometheus-external 
+#                  port:
+#                    number: 9090
+
