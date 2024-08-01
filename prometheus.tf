@@ -137,7 +137,7 @@ resource "helm_release" "prometheus" {
     kubernetes_namespace.prometheus_ns
   ]
   
-  #repository   = "https://https://prometheus-community.github.io/helm-charts"
+  #repository   = "https://prometheus-community.github.io/helm-charts"
   repository    = "./helm/"
   chart         = "kube-prometheus-stack"
   version       = "61.3.2"
@@ -154,11 +154,9 @@ resource "helm_release" "prometheus" {
     name   = local.chart_values.prometheus_name.name
     value  = local.chart_values.prometheus_name.value
   }
-  
   set {
     name   = local.chart_values.grafana.name
     value  = local.chart_values.grafana.value
-
   }
  
   ## Setting Ingress for grafana 
