@@ -15,7 +15,7 @@ $ mkdir -p  $HOME/work/
 $ cd $HOME/work 
 $ git clone https://github.com/kubernetes-sigs/kubespray.git 
 $ cd kubespray 
-$ git checkout **v2.25.0**                 ← kubernetes verison 1.29.5
+$ git checkout v2.25.0                 ← kubernetes verison 1.29.5
 
 참고 : https://github.com/kubernetes-sigs/kubespray/releases/tag/v2.25.0
 ```
