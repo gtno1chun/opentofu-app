@@ -4,6 +4,17 @@ locals {
     local.k8s_context == "was-cluster" ? "was-admin@cluster" : local.k8s_context
   )
 }
+/* dev cluster 추가할 때
+locals {
+  k8s_context = "${terraform.workspace}"
+  k8s_context_resolved = local.k8s_context == "web-cluster" ? "web-admin@cluster" : (
+    local.k8s_context == "was-cluster" ? "was-admin@cluster" : (
+      local.k8s_context == "dev-cluster" ? "dev-admin@cluster" : local.k8s_context
+    )
+  )
+}
+*/
+
 
 # kubernetes provider
 provider "kubernetes" {
