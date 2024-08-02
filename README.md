@@ -34,7 +34,10 @@ $ source $VENVDIR/bin/activate
 $ cd $KUBESPRAYDIR 
 $ pip install -U -r requirements.txt  
 ```
-$ vagrant up   
+```
+# 아래 명령어로 쿠버네티스 환경 자동 구축 
+$ vagrant up
+```   
 ![구축 결과](./virtualbox_kubespray.png)
 
 참고 :  vagrant halt, vagrant suspend, vagrant destroy -f    ← vagrant 기본 명령어 숙지.   
