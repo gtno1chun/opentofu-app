@@ -4,10 +4,10 @@
 kubespray + vagrant + virtualbox on Ubuntu 22.04    
 
 ## kubespray 환경 구성에 필요한 도구 설치  
-```
-1. VirtualBox 설치  ( 버전 : 7.0.18r162988 )
-2. Vagrant 설치 ( 버전 : 2.4.1 ) 
-```
+
+  1. VirtualBox 설치  ( 버전 : 7.0.18r162988 )
+  2. Vagrant 설치 ( 버전 : 2.4.1 ) 
+
 
 ## Kubespray 설치
 ```
@@ -77,10 +77,8 @@ $ kubectl get pod -A
 ```
 
 ---
----
 # OpenToFu를 이용한 어플리케이션 자동 설치 
 참조 사이트 : https://opentofu.org/docs/
-
 
 
 ### 환경 
