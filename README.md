@@ -86,7 +86,7 @@ $ kubectl get pod -A
 
 ### 환경 
 ```
-OS: Ubuntu 20.04
+OS: Ubuntu 22.04
 ```
 
 ## 1. OpenToFu 설치 
