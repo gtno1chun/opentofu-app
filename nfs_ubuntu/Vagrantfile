@@ -1,0 +1,41 @@
+# Vagrantfile for setting up an Ubuntu 20.04 NFS server with a specific disk size
+
+Vagrant.configure("2") do |config|
+  # Define a VM named "nfs-server"
+  config.vm.define "nfs-server" do |server|
+    server.vm.box = "ubuntu/focal64" # Ubuntu 20.04 box
+    server.vm.hostname = "nfs-server"
+
+    # Network configuration with a specific IP
+    server.vm.network "private_network", ip: "192.168.56.10"
+
+    # Use VirtualBox provider and set the VM name and disk size
+    server.vm.provider "virtualbox" do |vb|
+      vb.name = "NFS_server"
+      vb.memory = "1024" # Optional: Set memory size
+      vb.cpus = 2 # Optional: Set number of CPUs
+    end
+
+    # Set the disk size using vagrant-disksize plugin
+    server.disksize.size = '200GB'
+
+    # Provisioning script for NFS server setup
+    server.vm.provision "shell", inline: <<-SHELL
+      # Update package list and install NFS server
+      sudo apt-get update
+      sudo apt-get install -y nfs-kernel-server
+
+      # Create a directory to share via NFS
+      sudo mkdir -p /srv/nfs/shared
+      sudo chown nobody:nogroup /srv/nfs/shared
+      sudo chmod 777 /srv/nfs/shared
+
+      # Configure NFS exports
+      echo "/srv/nfs/shared *(rw,sync,no_subtree_check)" | sudo tee /etc/exports
+
+      # Restart NFS server to apply changes
+      sudo exportfs -a
+      sudo systemctl restart nfs-kernel-server
+    SHELL
+  end
+end
