@@ -21,12 +21,16 @@ resource "helm_release" "csi-driver-nfs" {
 #  }
 }
 
-resource "null_resource" "csi-driver-nfs-storageclass" {
-  depends_on = [
-    helm_release.csi-driver-nfs
-  ]
+resource "null_resource" "csi-nfs-drive" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
 
   provisioner "local-exec" {
-    command = "kubectl apply -f ./k8s_yaml/nfs_csi/csi-driver/storageclass-csi.yaml"
+    command = <<EOC
+      #kubectl get node --context=${local.k8s_context_resolved}
+      kubectl apply -f ./k8s_yaml/nfs_csi/csi-driver/storageclass-csi.yaml --context=${local.k8s_context_resolved}
+      kubectl get storageClass --context=${local.k8s_context_resolved}
+    EOC
   }
 }
