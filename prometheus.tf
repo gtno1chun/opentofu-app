@@ -186,7 +186,7 @@ resource "helm_release" "prometheus" {
   }
 
   ## Setting Ingress for grafana 
-  ## valuse.yaml 4297 아래 설정 후 도메인/webprom/graph 접속해야 함.
+  ## valuse.yaml 4297 아래 설정 후 도메인/prom/graph 접속해야 함.
   set {
     name  = local.ingress_values.prometheus_ing.setname_enabled
     value = local.ingress_values.prometheus_ing.setvalue_enabled

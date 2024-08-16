@@ -1,0 +1,25 @@
+# csi-dynamic-nfs-test-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csi-dynamic-nfs-test-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csi-dynamic-nfs-test
+  template:
+    metadata:
+      labels:
+        app: csi-dynamic-nfs-test
+    spec:
+      containers:
+      - name: csi-dynamic-nfs-test-container
+        image: nginx
+        volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: csi-dynamic-nfs-volume
+      volumes:
+      - name: csi-dynamic-nfs-volume
+        persistentVolumeClaim:
+          claimName: csi-dynamic-nfs-pvc

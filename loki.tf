@@ -1,3 +1,11 @@
+#########################################
+####  추천 Dashboard :
+####        errolog      : 14055
+####        applog       : 13639
+####        lokik8slogs  : 15141
+####        containerlog : 16970
+######################################### 
+
 locals { 
   loki_workspace = terraform.workspace 
 
@@ -17,7 +25,7 @@ locals {
     was-cluster = {
       grafana_ing = {
         setname_ini_domain  = "grafana.grafana\\.ini.server.domain" 
-        setvalue_ini_domain = "192.168.56.101:30232" 
+        setvalue_ini_domain = "192.168.58.101:31545" 
 
         setname_ini_root_url  = "grafana.grafana\\.ini.server.root_url"
         setvalue_ini_root_url = "http://192.168.58.101:31545/loki"
@@ -82,6 +90,10 @@ resource "helm_release" "loki-stack" {
   set {
     name   = local.loki_values.grafana_ing.setname_ini_sub_path
     value  = local.loki_values.grafana_ing.setvalue_ini_sub_path
+  }
+  set {
+    name   = "fluent-bit.enabled"
+    value  = true
   }
 }
 
