@@ -1,3 +1,5 @@
+## change value 참조 : ./helm/jenkins/README.md
+
 resource "kubernetes_namespace" "jenkins_ns" {
   count = terraform.workspace == "was-cluster" ? 1 : 0 
 
