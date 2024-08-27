@@ -1,3 +1,31 @@
+# Custome Value 내용 
+```
+controller:
+  runAsUser: 0
+  podSecurityContextOverride:
+    runAsUser: 0
+    runAsNonRoot: false
+  containerSecurityContext:
+    runAsUser: 0
+    runAsGroup: 0
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: true
+```
+```
+controller:
+  # serviceType: NodePort
+  jenkinsUriPrefix: "/jenkins"
+
+  ingress:
+    enabled: true
+    # hostName: "helloworld.com"
+    path: "/jenkins"
+```
+```
+persistence:
+  storageClass: "csi-nfs-sc"
+```
+
 # Jenkins
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/jenkins)](https://artifacthub.io/packages/helm/jenkinsci/jenkins)

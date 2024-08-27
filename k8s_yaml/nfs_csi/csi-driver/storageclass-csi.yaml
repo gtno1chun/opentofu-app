@@ -4,6 +4,7 @@ kind: StorageClass
 metadata:
   name: csi-nfs-sc
 provisioner: nfs.csi.k8s.io
+reclaimPolicy: Retain
 parameters:
   server: 192.168.56.10
   share: /srv/nfs/shared

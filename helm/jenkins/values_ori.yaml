@@ -78,7 +78,7 @@ controller:
     username: "admin"
     # -- Admin password created as a secret if `controller.admin.createSecret` is true
     # @default -- <random password>
-    password: "admin"
+    password:
 
     # -- The key in the existing admin secret containing the username
     userKey: jenkins-admin-user
@@ -170,7 +170,7 @@ controller:
   # If you set this prefix and use ingress controller, then you might want to set the ingress path below
   # I.e., "/jenkins"
   # -- Root URI Jenkins will be served on
-  jenkinsUriPrefix: "/jenkins"
+  jenkinsUriPrefix:
 
   # -- Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set)
   usePodSecurityContext: true
@@ -180,7 +180,7 @@ controller:
   # Set runAsUser to 1000 to let Jenkins run as non-root user 'jenkins', which exists in 'jenkins/jenkins' docker image.
   # When configuring runAsUser to a different value than 0 also set fsGroup to the same value:
   # -- Deprecated in favor of `controller.podSecurityContextOverride`. uid that jenkins runs with.
-  runAsUser: 0
+  runAsUser: 1000
 
   # -- Deprecated in favor of `controller.podSecurityContextOverride`. uid that will be used for persistent volume.
   fsGroup: 1000
@@ -199,15 +199,14 @@ controller:
   #   supplementalGroups: [1000]
   #   capabilities: {}
   # -- Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities`
-  podSecurityContextOverride: 
-    runAsUser: 0
-    runAsNonRoot: false
+  podSecurityContextOverride: ~
+
   # -- Allow controlling the securityContext for the jenkins container
   containerSecurityContext:
-    runAsUser: 0
-    runAsGroup: 0
-    readOnlyRootFilesystem: false
-    allowPrivilegeEscalation: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
 
   # For minikube, set this to NodePort, elsewhere uses LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
@@ -679,7 +678,7 @@ controller:
 
   ingress:
     # -- Enables ingress
-    enabled: true
+    enabled: false
 
     # Override for the default paths that map requests to the backend
     # -- Override for the default Ingress paths
@@ -700,17 +699,16 @@ controller:
     # -- Ingress labels
     labels: {}
     # -- Ingress annotations
-    annotations: 
-      kubernetes.io/ingress.class: nginx
-      # nginx.ingress.kubernetes.io/rewrite-target: /$2
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    ingressClassName: nginx
+    # ingressClassName: nginx
 
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     # -- Ingress path
-    path: "/jenkins"
+    path:
 
     # configures the hostname e.g. jenkins.example.com
     # -- Ingress hostname
@@ -1246,7 +1244,7 @@ persistence:
   # If undefined (the default) or set to null, no storageClassName spec is
   #   set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS & OpenStack)
   # -- Storage class for the PVC
-  storageClass: "csi-nfs-sc"
+  storageClass:
   # -- Annotations for the PVC
   annotations: {}
   # -- Labels for the PVC
