@@ -141,3 +141,8 @@ resource "kubernetes_ingress_v1" "loki-ingress" {
     }
   }
 }
+
+
+## loki headless를 이용한 web-cluster grafana 연동 
+### ingress 설치 
+### 참조 : ./helm/loki-stack README.md 

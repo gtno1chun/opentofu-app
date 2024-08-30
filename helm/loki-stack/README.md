@@ -1,3 +1,33 @@
+# loki headless를 이용한 web-cluster grafana 연동 
+## ingress 설치 
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: loki-data
+  namespace: loki-stack
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: loki-name-headless     # 중요 : service 중 headless에 연결할 것 
+            port:
+              number: 3100
+        path: /waslog(/|$)(.*)
+        pathType: ImplementationSpecific
+```
+## web-cluster grafana datasource 추가
+```
+http://192.168.58.101:31545/waslog
+```
+
+
+
 # Loki-Stack Helm Chart
 
 This `loki-stack` Helm chart is a community maintained chart.

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: loki-data
+  namespace: loki-stack
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: loki-name-headless
+            port:
+              number: 3100
+        path: /data(/|$)(.*)
+        pathType: ImplementationSpecific
