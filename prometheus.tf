@@ -134,7 +134,8 @@ resource "kubernetes_namespace" "prometheus_ns" {
 
 resource "helm_release" "prometheus" {
   depends_on = [
-    kubernetes_namespace.prometheus_ns
+    kubernetes_namespace.prometheus_ns,
+    helm_release.csi-driver-nfs 
   ]
   
   #repository   = "https://prometheus-community.github.io/helm-charts"
@@ -202,6 +203,46 @@ resource "helm_release" "prometheus" {
   set {
     name  = local.ingress_values.prometheus_ing.setname_paths
     value = local.ingress_values.prometheus_ing.setvalue_paths 
+  }
+
+  # prometheus persistence volume
+  set {
+    name  = "prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+    value = "csi-nfs-sc" 
+  }
+  set {
+    name  = "prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.accessModes[0]"
+    value = "ReadWriteOnce" 
+  }
+  set {
+    name  = "prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.resources.requests.storage"
+    value = "50Gi" 
+  }
+
+  # if grafana false 실행되지 않음
+  set {
+    name  = "grafana.persistence.enabled"
+    value = true 
+  } 
+  set {
+    name  = "grafana.persistence.type"
+    value = "sts"
+  }
+  set {
+    name  = "grafana.persistence.storageClassName"
+    value = "csi-nfs-sc" 
+  }
+  set {
+    name  = "grafana.persistence.accessModes[0]"
+    value = "ReadWriteOnce" 
+  }
+  set {
+    name  = "grafana.persistence.size"
+    value = "20Gi" 
+  }
+  set {
+    name  = "grafana.persistence.finalizers"
+    value = "kubernetes.io/pvc-protection" 
   }
 
 }

@@ -37,5 +37,9 @@ resource "helm_release" "ingress-nginx" {
     value = "Ignore"
   }
 
+  set {
+    name  = "controller.metrics.enabled"
+    value = true 
+  }
 }
 

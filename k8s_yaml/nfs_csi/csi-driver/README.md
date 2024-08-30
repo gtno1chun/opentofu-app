@@ -48,9 +48,11 @@ end
 #### NFS server 설정 
 
 ```
-참고 : 서브넷이 다른 클라언트 insecure 설정이 더 필요함. 
+참고 : 서브넷이 다른 클라언트 insecure 설정이 더 필요함. 또 no_root_squash 옵션을 추가하여 pvc 볼륨 쓰기 권한을 root가 아닌 각 서비스별 권한을 가지도록 함. 
+ 
 vi /etc/exportfs
-/srv/nfs/shared *(rw,sync,no_subtree_check,insecure)
+# /etc/exports
+/srv/nfs/shared *(rw,sync,no_subtree_check,no_root_squash,insecure)
 
 sudo exportfs -ra
 sudo systemctl restart nfs-kernel-server.service

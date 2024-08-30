@@ -3925,7 +3925,7 @@ prometheus:
     ## This defaults to non root user with uid 1000 and gid 2000.
     ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md
     ##
-    securityContext:
+    securityContext: 
       runAsGroup: 2000
       runAsNonRoot: true
       runAsUser: 1000
