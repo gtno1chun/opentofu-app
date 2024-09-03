@@ -72,7 +72,7 @@ helm install csi-driver-nfs csi-driver-nfs/csi-driver-nfs --namespace kube-syste
 ```
 
 
-
+```
 #### nfs-sc StorageClass
 # dynamic-pvc.yaml
 # csi-nfs-sc.yaml
@@ -129,5 +129,5 @@ spec:
       - name: csi-dynamic-nfs-volume
         persistentVolumeClaim:
           claimName: csi-dynamic-nfs-pvc
-
+```
 
