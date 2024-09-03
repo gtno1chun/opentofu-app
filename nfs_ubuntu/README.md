@@ -60,10 +60,13 @@ client 서버 IP : 192.168.56.101 ~ 103
 
 client 서버 IP : 192.168.58.101 ~ 103  -> nfs server와 서브넷 대역이 다름, 라우터 설정해도 안됨 : insecure 옵션 추가 후 정상 동작  (rw,sync,no_subtree_check,insecure)
 
+no_root_squash 옵션을 추가하여 pvc 볼륨 쓰기 권한을 root가 아닌 각 서비스별 권한을 가지도록 함. 
+
 ```
-참고 : 서브넷이 다른 클라언트 insecure 설정이 더 필요함. 
+참고 : 서브넷이 다른 클라언트 insecure 과  서비스별 쓰기 권한을 위해, no_root_sqush 옵션 추가  
 vi /etc/exportfs
-/srv/nfs/shared *(rw,sync,no_subtree_check,insecure)
+# /etc/exports
+/srv/nfs/shared *(rw,sync,no_subtree_check,no_root_squash,insecure)
 
 sudo exportfs -ra
 sudo systemctl restart nfs-kernel-server.service
