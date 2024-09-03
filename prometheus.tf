@@ -219,7 +219,7 @@ resource "helm_release" "prometheus" {
     value = "50Gi" 
   }
 
-  # if grafana false 실행되지 않음
+  # if grafana enabled false 실행되지 않음
   set {
     name  = "grafana.persistence.enabled"
     value = true 
