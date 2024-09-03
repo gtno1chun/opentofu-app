@@ -76,6 +76,8 @@ $ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/n
 ```
 
 
+## 테스트 방법 
+```
 #### pvc.yaml
 # dynamic-pvc.yaml
 apiVersion: v1
@@ -117,6 +119,6 @@ spec:
       - name: dynamic-nfs-volume
         persistentVolumeClaim:
           claimName: dynamic-nfs-pvc
-
+```
 
          
