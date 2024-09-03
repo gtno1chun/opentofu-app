@@ -71,7 +71,7 @@ helm repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/cs
 helm install csi-driver-nfs csi-driver-nfs/csi-driver-nfs --namespace kube-system --version v4.8.0
 ```
 
-
+## 정적  PVC 확인 방법 
 ```
 #### nfs-sc StorageClass
 # dynamic-pvc.yaml
