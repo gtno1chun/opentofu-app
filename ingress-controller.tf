@@ -1,4 +1,6 @@
 resource "kubernetes_namespace" "ingress-nginx_ns"  {
+  count = terraform.workspace == "dna_lab" ? 1 : 0
+
   metadata {
     annotations = {
       name = "ingress-nginx"
@@ -11,6 +13,8 @@ resource "kubernetes_namespace" "ingress-nginx_ns"  {
 }
 
 resource "helm_release" "ingress-nginx" {
+  count = terraform.workspace == "dna_lab" ? 1 : 0
+
   depends_on = [
     kubernetes_namespace.ingress-nginx_ns
   ]
@@ -20,14 +24,15 @@ resource "helm_release" "ingress-nginx" {
   chart         = "ingress-nginx" 
   version       = "4.10.3" 
   name          = "ingress-nginx" 
-  namespace     = kubernetes_namespace.ingress-nginx_ns.metadata[0].name
+  namespace     = length(kubernetes_namespace.ingress-nginx_ns) > 0 ? kubernetes_namespace.ingress-nginx_ns[0].metadata[0].name : "" 
   
   # recreate_pods = true
   
   values = [ 
     file("./helm/ingress-nginx/values.yaml")
   ]
-
+  
+  /*
   set {
     name  = "controller.service.type"
     value = "NodePort"
@@ -41,5 +46,7 @@ resource "helm_release" "ingress-nginx" {
     name  = "controller.metrics.enabled"
     value = true 
   }
+  */
+  
 }
 
